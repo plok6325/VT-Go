@@ -11,7 +11,7 @@ import os
 import urllib
 
 def get_image():
-    file = StringIO(urllib.urlopen('https://lh4.googleusercontent.com/-v0soe-ievYE/AAAAAAAAAAI/AAAAAAADnx8/TYw5hefoVmg/s0-c-k-no-ns/photo.jpg').read())
+    file = StringIO(urllib.urlopen('https://github.com/plok6325/VT-Go/raw/master/images/Z.jpg').read())
     img1 = ImageTk.PhotoImage(Image.open(file))
     return img1
     
