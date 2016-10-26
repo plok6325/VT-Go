@@ -14,6 +14,12 @@ import re
 import random  
 import pandas as pd 
 
+def get_home_image():
+    file = StringIO(urlopen('https://github.com/plok6325/VT-Go/raw/master/content/loading.jpg').read())
+    loading = ImageTk.PhotoImage(Image.open(file))
+    
+    
+    
 def get_image(match):
     idx=random.randint(0, len(match)-1)
     image_url=match[idx]
@@ -57,7 +63,7 @@ def real():
     pcbutton.config(bg='white')
     realbutton.config(bg='red')
     print ('real !')
-    
+    flag=1
     
 def pc():
     global imgname
@@ -68,6 +74,7 @@ def pc():
     result_tuple[imgname]=(numr,nump+1)
     result[imgname]=1
     print ('pc!')
+    flag=1
     
     
 def submit():
@@ -77,6 +84,8 @@ def submit():
 
 def timeout(): 
     print ('Timeup')
+    panel.config(image=loading)
+    panel.image = loading
     change_image()
     
     
@@ -102,7 +111,7 @@ def change_image():
     
 if flag==0:
     image_url=(get_image_url())
-    flag=1
+    
     
 result_tuple={}
 result={}
@@ -117,10 +126,14 @@ imageFrame.pack(side=Tkinter.TOP)
 bottonFrame=Tkinter.Frame(toplvl)
 bottonFrame.pack(side=Tkinter.BOTTOM)
 
-img1,imgname=get_image(image_url)
-result_tuple[imgname]=(0,0)
+file = StringIO(urlopen('https://github.com/plok6325/VT-Go/raw/master/content/loading.jpg').read())
+loading = ImageTk.PhotoImage(Image.open(file))
 
-panel = Tkinter.Label(imageFrame, image = img1)
+file = StringIO(urlopen('https://github.com/plok6325/VT-Go/raw/master/content/welcome.jpg').read())
+home= ImageTk.PhotoImage(Image.open(file))
+imgname=str(time.time())
+
+panel = Tkinter.Label(imageFrame, image = home)
 panel.pack(side = "top", fill = "both", expand = "yes")
 realbutton = Tkinter.Button(bottonFrame, text="  T R U M P   ", command = real)
 realbutton.pack( side = Tkinter.LEFT)
@@ -128,8 +141,11 @@ pcbutton = Tkinter.Button(bottonFrame, text="  c l i n t o n   ", command = pc)
 pcbutton.pack( side = Tkinter.RIGHT )
 subbutton = Tkinter.Button(bottonFrame, text="   s u b m i t    ", command = submit)
 subbutton.pack( side = Tkinter.LEFT )
-change_image()
 
+if flag==1:
+    change_image()
+    
+    
 root.mainloop()  
 
 
