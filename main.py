@@ -16,13 +16,15 @@ import pandas as pd
 def get_image(match):
     idx=random.randint(0, len(match)-1)
     image_url=match[idx]
-    match.pop(idx)                
+    match.pop(idx)          
+    print ('loading images')      
     file = StringIO(urllib.urlopen('https://github.com/plok6325/VT-Go/raw/'+image_url).read())
     img1 = ImageTk.PhotoImage(Image.open(file))
     return img1,image_url
     
    
 def get_image_url():
+    print ('getting image url')
     name=urllib.urlopen('https://github.com/plok6325/VT-Go/tree/master/images').read() # image home page 
     pattern = re.compile(r'master/images/+\S+.jpg') # regexp pattern
     match = pattern.findall(name) # image url 
@@ -33,6 +35,14 @@ try:
     from cStringIO import StringIO #python 2
 except ImportError:
     from io import StringIO #python 3
+    
+    
+if os.path.exists('.\uploadme'):
+    print ('file found')
+else:
+    os.mkdir('.\uploadme')
+
+
     
 flag=0
 
@@ -102,7 +112,7 @@ if det==1:
     df=pd.Series(result)
     name=str(random.randint(0,99999))
     df.to_csv('.\uploadme\\'+name+'result.csv')
-    df=pd.Series(result)
+    print ('result saved to uploadme ')
 
 
     
