@@ -100,7 +100,8 @@ root.mainloop()
 
 if det==1:
     df=pd.Series(result)
-    df.to_csv('result.csv')
+    name=str(random.randint(0,99999))
+    df.to_csv('.\uploadme\\'+name+'result.csv')
     df=pd.Series(result)
 
 
