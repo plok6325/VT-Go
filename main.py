@@ -13,7 +13,9 @@ import re
 import random  
 
 def get_image(match):
-    image_url=match[random.randint(0, len(match)-1)]
+    idx=random.randint(0, len(match)-1)
+    image_url=match[idx]
+    match.pop(idx)                
     file = StringIO(urllib.urlopen('https://github.com/plok6325/VT-Go/raw/'+image_url).read())
     img1 = ImageTk.PhotoImage(Image.open(file))
     return img1
