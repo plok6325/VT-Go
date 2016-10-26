@@ -54,27 +54,31 @@ def real():
     nump=result_tuple[imgname][0]
     result_tuple[imgname]=(numr+1,nump)
     result[imgname]=0
-    change_image()
+    pcbutton.config(bg='white')
+    realbutton.config(bg='red')
+    print ('real !')
+    
     
 def pc():
     global imgname
+    realbutton.config(bg='white')
+    pcbutton.config(bg='red')
     numr=result_tuple[imgname][1]
     nump=result_tuple[imgname][0]
     result_tuple[imgname]=(numr,nump+1)
     result[imgname]=1
-    change_image()
+    print ('pc!')
+    
     
 def submit():
     global det 
     root.destroy()
     det=1
 
-def expire():
-    global imgname
-    if imgname not in result.keys() or result[imgname]!=1 or result[imgname]!=0:
-        change_image()
-        result[imgname]=2
-        print ('expire')
+def timeout(): 
+    print ('Timeup')
+    change_image()
+    
     
         
     
@@ -83,11 +87,14 @@ def change_image():
     global imgname
     global img_disp
     imgt,imgname=get_image(image_url)
+    realbutton.config(bg='white')
+    pcbutton.config(bg='white')
     result_tuple[imgname]=(0,0)
+    result[imgname]=-1
     panel.config(image=imgt)
     panel.image = imgt
     was=time.time()
-    panel.after(5000,expire)
+    aferid=panel.after(5000,timeout)
     print 'change image done'
     
     
@@ -121,7 +128,8 @@ pcbutton = Tkinter.Button(bottonFrame, text="      P    C    ", command = pc)
 pcbutton.pack( side = Tkinter.RIGHT )
 subbutton = Tkinter.Button(bottonFrame, text="   s u b m i t    ", command = submit)
 subbutton.pack( side = Tkinter.LEFT )
-    
+change_image()
+
 root.mainloop()  
 
 
