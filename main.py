@@ -8,7 +8,8 @@ Created on Tue Oct 25 18:13:55 2016
 import Tkinter 
 from PIL import ImageTk, Image
 import os
-import urllib 
+from urllib import urlopen
+
 import re
 import random  
 import pandas as pd 
@@ -18,14 +19,14 @@ def get_image(match):
     image_url=match[idx]
     match.pop(idx)          
     print ('loading images')      
-    file = StringIO(urllib.urlopen('https://github.com/plok6325/VT-Go/raw/'+image_url).read())
+    file = StringIO(urlopen('https://github.com/plok6325/VT-Go/raw/'+image_url).read())
     img1 = ImageTk.PhotoImage(Image.open(file))
     return img1,image_url
     
    
 def get_image_url():
     print ('getting image url')
-    name=urllib.urlopen('https://github.com/plok6325/VT-Go/tree/master/images').read() # image home page 
+    name=urlopen('https://github.com/plok6325/VT-Go/tree/master/images').read() # image home page 
     pattern = re.compile(r'master/images/+\S+.jpg') # regexp pattern
     match = pattern.findall(name) # image url 
     return match
