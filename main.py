@@ -31,7 +31,9 @@ try:
 except ImportError:
     from io import StringIO #python 3
     
-    '''
+flag=0
+
+'''
 root = Tkinter.Toplevel()
 
 img1=get_image(get_image_url())
@@ -72,28 +74,45 @@ def new_window_2(root):
     return root
     
 '''
-
+if flag==0:
+    image_url=(get_image_url())
+    flag=1
     
+    
+root = Tkinter.Tk()
+root.withdraw()
+top = Tkinter.Toplevel(root)
 def new_window_1():
     
-    root = Tkinter.Toplevel()
+    img1=get_image(image_url)
 
-    img1=get_image(get_image_url())
-
-    panel = Tkinter.Label(root, image = img1)
+    panel = Tkinter.Label(top, image = img1)
     panel.pack(side = "top", fill = "both", expand = "yes")
 
 
-    redbutton = Tkinter.Button(root, text="   R  E  A  L   ", command = new_window_1)
+    redbutton = Tkinter.Button(top, text="   R  E  A  L   ", command = top.quit )
     redbutton.pack( side = Tkinter.LEFT)
 
-    greenbutton = Tkinter.Button(root, text="      P    C    ")
+    greenbutton = Tkinter.Button(top, text="      P    C    ", command = top.quit)
     greenbutton.pack( side = Tkinter.RIGHT )
-
+    subbutton = Tkinter.Button(top, text="   s u b m i t    ", command =top.quit )
+    subbutton.pack( side = Tkinter.LEFT )
+    
     root.mainloop()
     
     
-new_window_1()
+def real():
+    top.destroy()
+    
+def pc():
+    top.destroy()
+    
+def submit():
+    top.destroy()
+it=0
+while it<10:
+    it=it+1 
+    new_window_1()
 
 
 
