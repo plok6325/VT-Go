@@ -9,7 +9,7 @@ import Tkinter
 from PIL import ImageTk, Image
 import os
 from urllib import urlopen
-import time
+
 import re
 import random  
 import pandas as pd 
@@ -68,29 +68,13 @@ def submit():
     global det 
     root.destroy()
     det=1
-
-def expire():
-    global imgname
-    if imgname not in result.keys() or result[imgname]!=1 or result[imgname]!=0:
-        change_image()
-        result[imgname]=2
-        print ('expire')
-    
-        
-    
     
 def change_image():
     global imgname
-    global img_disp
     imgt,imgname=get_image(image_url)
     result_tuple[imgname]=(0,0)
     panel.config(image=imgt)
     panel.image = imgt
-    was=time.time()
-    panel.after(5000,expire)
-    print 'change image done'
-    
-    
     
     
 if flag==0:
