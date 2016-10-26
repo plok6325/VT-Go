@@ -18,7 +18,7 @@ def get_image(match):
     img1 = ImageTk.PhotoImage(Image.open(file))
     return img1
     
-    
+   
 def get_image_url():
     name=urllib.urlopen('https://github.com/plok6325/VT-Go/tree/master/images').read() # image home page 
     pattern = re.compile(r'master/images/+\S+.jpg') # regexp pattern
@@ -33,74 +33,7 @@ except ImportError:
     
 flag=0
 
-'''
-root = Tkinter.Toplevel()
 
-img1=get_image(get_image_url())
-
-panel = Tkinter.Label(root, image = img1)
-panel.pack(side = "top", fill = "both", expand = "yes")
-
-
-redbutton = Tkinter.Button(root, text="   R  E  A  L   ", command = new_window)
-redbutton.pack( side = Tkinter.LEFT)
-
-greenbutton = Tkinter.Button(root, text="      P    C    ")
-greenbutton.pack( side = Tkinter.RIGHT )
-
-root.mainloop()
-
-    
-'''
-
-'''
-def new_window_2(root):
-    
-    root = Tkinter.Tk()
-
-    img1=get_image(get_image_url())
-
-    panel = Tkinter.Label(root, image = img1)
-    panel.pack(side = "top", fill = "both", expand = "yes")
-
-
-    redbutton = Tkinter.Button(root, text="   R  E  A  L   ", command = new_window_2)
-    redbutton.pack( side = Tkinter.LEFT)
-
-    greenbutton = Tkinter.Button(root, text="      P    C    ")
-    greenbutton.pack( side = Tkinter.RIGHT )
-
-    root.mainloop()
-    return root
-    
-'''
-if flag==0:
-    image_url=(get_image_url())
-    flag=1
-    
-    
-root = Tkinter.Tk()
-root.withdraw()
-top = Tkinter.Toplevel(root)
-def new_window_1():
-    
-    img1=get_image(image_url)
-
-    panel = Tkinter.Label(top, image = img1)
-    panel.pack(side = "top", fill = "both", expand = "yes")
-
-
-    redbutton = Tkinter.Button(top, text="   R  E  A  L   ", command = top.quit )
-    redbutton.pack( side = Tkinter.LEFT)
-
-    greenbutton = Tkinter.Button(top, text="      P    C    ", command = top.quit)
-    greenbutton.pack( side = Tkinter.RIGHT )
-    subbutton = Tkinter.Button(top, text="   s u b m i t    ", command =top.quit )
-    subbutton.pack( side = Tkinter.LEFT )
-    
-    root.mainloop()
-    
-    
 def real():
     top.destroy()
     
@@ -108,11 +41,42 @@ def pc():
     top.destroy()
     
 def submit():
-    top.destroy()
-it=0
-while it<10:
-    it=it+1 
-    new_window_1()
+    root.destroy()
+    
+def change_image():
+    imgt=get_image(image_url)
+    panel.config(image=imgt)
+    panel.image = imgt
+
+    
+if flag==0:
+    image_url=(get_image_url())
+    flag=1
+    
+    
+root = Tkinter.Tk()
+root.withdraw()
+
+toplvl = Tkinter.Toplevel(root)
+imageFrame=Tkinter.Frame(toplvl)
+imageFrame.pack(side=Tkinter.TOP)
+bottonFrame=Tkinter.Frame(toplvl)
+bottonFrame.pack(side=Tkinter.BOTTOM)
+
+img1=get_image(image_url)
+panel = Tkinter.Label(imageFrame, image = img1)
+panel.pack(side = "top", fill = "both", expand = "yes")
+    
+realbutton = Tkinter.Button(bottonFrame, text="   R  E  A  L   ", command = change_image )
+realbutton.pack( side = Tkinter.LEFT)
+
+pcbutton = Tkinter.Button(bottonFrame, text="      P    C    ", command = change_image)
+pcbutton.pack( side = Tkinter.RIGHT )
+subbutton = Tkinter.Button(bottonFrame, text="   s u b m i t    ", command = submit)
+subbutton.pack( side = Tkinter.LEFT )
+    
+
+root.mainloop()  
 
 
-
+    
