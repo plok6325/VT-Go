@@ -21,12 +21,13 @@ def get_home_image():
     
     
 def get_image(match):
+    print ('start load')
     idx=random.randint(0, len(match)-1)
     image_url=match[idx]
-    match.pop(idx)          
-    print ('loading images')      
+    match.pop(idx)    
     file = StringIO(urlopen('https://github.com/plok6325/VT-Go/raw/'+image_url).read())
     img1 = ImageTk.PhotoImage(Image.open(file))
+    print ('finish load')
     return img1,image_url
     
    
@@ -55,7 +56,7 @@ flag=0
 
 
 def real():
-    global imgname
+    global imgname,flag
     numr=result_tuple[imgname][1]
     nump=result_tuple[imgname][0]
     result_tuple[imgname]=(numr+1,nump)
@@ -65,8 +66,10 @@ def real():
     print ('real !')
     flag=1
     
+    
+    
 def pc():
-    global imgname
+    global imgname,flag
     realbutton.config(bg='white')
     pcbutton.config(bg='red')
     numr=result_tuple[imgname][1]
@@ -77,33 +80,46 @@ def pc():
     flag=1
     
     
+    
 def submit():
     global det 
-    root.destroy()
+    change_image()
+    subbutton.config(text='             ')
+    realbutton.config(text='T  R  U  M  P ')
+    pcbutton.config(text='C l i n t o n')
+    #root.destroy()
     det=1
 
 def timeout(): 
-    print ('Timeup')
-    panel.config(image=loading)
-    panel.image = loading
+    
+    print ('Saving')
+    df=pd.Series(result)
+    df.to_csv('.\uploadme\\'+name+'result.csv')
+    print ('result saved to uploadme ')
+    realbutton.config(bg='white')
+    pcbutton.config(bg='white')
     change_image()
     
     
-        
+def loadingscreen():
+    
+    panel.config(image=loading)
+    panel.image = loading
+    
+    
     
     
 def change_image():
-    global imgname
+    loadingscreen()
+    global imgname,loading
     global img_disp
     imgt,imgname=get_image(image_url)
-    realbutton.config(bg='white')
-    pcbutton.config(bg='white')
+    
     result_tuple[imgname]=(0,0)
     result[imgname]=-1
     panel.config(image=imgt)
     panel.image = imgt
-    was=time.time()
-    aferid=panel.after(5000,timeout)
+    aferid=panel.after(delay,timeout)
     print 'change image done'
     
     
@@ -116,7 +132,7 @@ if flag==0:
 result_tuple={}
 result={}
 
-
+delay=3000
 root = Tkinter.Tk()
 root.withdraw()
 
@@ -132,28 +148,24 @@ loading = ImageTk.PhotoImage(Image.open(file))
 file = StringIO(urlopen('https://github.com/plok6325/VT-Go/raw/master/content/welcome.jpg').read())
 home= ImageTk.PhotoImage(Image.open(file))
 imgname=str(time.time())
-
+result_tuple[imgname]=(0,0)
 panel = Tkinter.Label(imageFrame, image = home)
-panel.pack(side = "top", fill = "both", expand = "yes")
-realbutton = Tkinter.Button(bottonFrame, text="  T R U M P   ", command = real)
+panel.pack(side = "top", fill = "both", expand = "no")
+realbutton = Tkinter.Button(bottonFrame, text="                   ", command = real)
 realbutton.pack( side = Tkinter.LEFT)
-pcbutton = Tkinter.Button(bottonFrame, text="  c l i n t o n   ", command = pc)
+exitbutton = Tkinter.Button(bottonFrame, text=" quit  ", command = root.destroy)
+exitbutton.pack( side = Tkinter.RIGHT )
+pcbutton = Tkinter.Button(bottonFrame, text="                  ", command = pc)
 pcbutton.pack( side = Tkinter.RIGHT )
-subbutton = Tkinter.Button(bottonFrame, text="   s u b m i t    ", command = submit)
+subbutton = Tkinter.Button(bottonFrame, text=" s t a r t  ", command = submit)
 subbutton.pack( side = Tkinter.LEFT )
 
-if flag==1:
-    change_image()
-    
+det=0
+name=str(random.randint(0,99999))
     
 root.mainloop()  
 
 
-if det==1:
-    df=pd.Series(result)
-    name=str(random.randint(0,99999))
-    df.to_csv('.\uploadme\\'+name+'result.csv')
-    print ('result saved to uploadme ')
 
 
     
