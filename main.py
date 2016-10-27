@@ -56,7 +56,7 @@ else:
     
 flag=0
 
-
+'''
 def ftp_up(filename ): 
     
     ftp = FTP('192.168.1.113')  
@@ -69,7 +69,7 @@ def ftp_up(filename ):
     file_handler.close() 
     ftp.quit() 
     print "ftp up OK" 
-    
+    '''
     
 def real():
     global imgname,flag
@@ -187,7 +187,7 @@ root.mainloop()
 
 while det==1:
     filee='.\uploadme\\'+name+'result.csv'
-    ftp_up(filename=filee)
+    #ftp_up(filename=filee)
     det=3
 
 
