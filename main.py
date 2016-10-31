@@ -100,8 +100,8 @@ def pc():
 def submit():
     global det 
     subbutton.config(text='             ')
-    realbutton.config(text='T  R  U  M  P ')
-    pcbutton.config(text='C l i n t o n')
+    realbutton.config(text='R   E   A   L  ')
+    pcbutton.config(text='G E N E R A T E D')
     #root.destroy()
     det=1
     change_image()
