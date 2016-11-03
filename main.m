@@ -1,14 +1,13 @@
 clear all;
 
+
+
+appeared=0
 imagebase=dir('.\images');
-imagebase(1).name
-
-
-
 
 sca;
 close all;
-clearvars;
+%clearvars;
 
 % Here we call some default settings for setting up Psychtoolbox
 PsychDefaultSetup(2);
@@ -42,8 +41,9 @@ Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
 
 % Here we load in an image from file. This one is a image of rabbits that
 % is included with PTB
-
-theImage=imread('.\images\images (21).jpg')
+for x=1:length(imagebase)
+[imagename,imagebase]=get_image(imagebase);
+theImage=imread(['./images/',imagename]);
 %imagebase.name()
 % Get the size of the image
 [s1, s2, s3] = size(theImage);
@@ -55,7 +55,8 @@ if s1 > screenYpixels || s2 > screenYpixels
     sca;
     return;
 end
-
+% i=regexp(imagename,'.jpg')
+% imagename=imagename(1:i)
 % Make the image into a texture
 imageTexture = Screen('MakeTexture', window, theImage);
 
@@ -68,18 +69,21 @@ Screen('DrawTexture', window, imageTexture, [], [], 0);
 Screen('Flip', window);
 
 % Wait for two seconds
-WaitSecs(2);
-
-% Now fill the screen green
+WaitSecs(5);
+[x,y,buttons,focus,valuators,valinfo] = GetMouse()
+appeared=appeared+1
+result(appeared).file=(imagename)
+result(appeared).loc=([x,y])
+% Now fill the screen balck
 Screen('FillRect', window, [1 1 1]);
 
 % Flip to the screen
 Screen('Flip', window);
 
 % Wait for two seconds
-WaitSecs(2);
+%WaitSecs(2);
 
-
+end
 
 % Clear the screen
 sca;
