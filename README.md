@@ -3,7 +3,4 @@ BICV 1598
 
 
 ## 
-download main.py ! 
-
-
-tested in win10 py 2.7 
+version # 1.2.0
