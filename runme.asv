@@ -1,0 +1,10 @@
+%% run me 
+page=urlread('https://github.com/plok6325/VT-Go')
+
+script_version=page(regexp(page,'script_version')+16:regexp(page,'script_version')+21)
+image_version=page(regexp(page,'image_version')+16:regexp(page,'image_version')+20)
+[script_version,image_version]=version_manager();
+
+imageversion=dir('*image*');
+imageversion(1).name(7:11)
+main(image_version)
