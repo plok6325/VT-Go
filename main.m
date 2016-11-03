@@ -1,5 +1,5 @@
-clear all;
-close all;
+function [ output_args ] = main( image_version, op )
+if op==1
 imagebase=dir('.\images');
 imagebase(1)=[];
 imagebase(1)=[];
@@ -7,7 +7,7 @@ sca;
 
 %clearvars;
 
-% Here we call some default settings for setting up Psychtoolbox
+% Here we call some defazult settings for setting up Psychtoolbox
 PsychDefaultSetup(2);
 
 % Get the screen numbers
@@ -92,3 +92,5 @@ time=now;
 save(['.\result\',num2str(time),'.mat'])
 % Clear the screen
 sca;
+
+end
