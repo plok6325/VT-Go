@@ -76,7 +76,7 @@ for x=1:length(imagebase)
     Screen('Flip', window);
     
     % Wait for two seconds
-    WaitSecs(5);
+    WaitSecs(1);
     [x,y,buttons,focus,valuators,valinfo] = GetMouse();
     this_result.file=imagename;
     this_result.loc=[x/xCenter,y/yCenter];
