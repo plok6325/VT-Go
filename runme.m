@@ -8,7 +8,6 @@ image_version=page(image_V(1)+8:image_V(1)+12);
 
 [currentmainversion ,currentimageversion]=version_check;
 
-
 if strcmp(currentimageversion,image_version) && strcmp(main_version,currentmainversion)
     main(image_version,1);
 else
