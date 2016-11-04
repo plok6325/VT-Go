@@ -2,7 +2,7 @@ function [ output_args ] = main( image_version, op )
 if op==0
     output_args='1.2.0';
 else 
-path=['.\images',image_version,'\']
+path=['.\images',image_version,'\'];
 imagebase=dir(path);
 imagebase(1)=[];
 imagebase(1)=[];
@@ -47,8 +47,8 @@ for x=1:length(imagebase)
     
     imagename=[];
     randimageindex=1+floor(rand(1)*length(imagebase));
-    imagename=imagebase(randimageindex).name
-    imagebase(randimageindex)=[]
+    imagename=imagebase(randimageindex).name;
+    imagebase(randimageindex)=[];
     
     theImage=imread([path,imagename]);
     %imagebase.name()
@@ -73,6 +73,14 @@ for x=1:length(imagebase)
     Screen('DrawTexture', window, imageTexture, [], [], 0);
     
     % Flip to the screen
+    
+    Screen('TextSize', window, 60);
+    DrawFormattedText(window, 'Real',screenXpixels * 0.10,...
+    screenYpixels * 0.20, [1 0 0]);
+
+    Screen('TextSize', window, 60);
+    DrawFormattedText(window, 'Generated',screenXpixels * 0.70,...
+    screenYpixels * 0.20, [1 0 0]);
     Screen('Flip', window);
     
     % Wait for two seconds
@@ -92,8 +100,11 @@ for x=1:length(imagebase)
     
 end
 time=now;
+mkdir('result')
 save(['.\result\',num2str(time),'.mat'])
 % Clear the screen
 sca;
+output_args='1';
+end
 
 end
