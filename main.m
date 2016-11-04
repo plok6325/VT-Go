@@ -1,6 +1,9 @@
 function [ output_args ] = main( image_version, op )
-if op==1
-imagebase=dir('.\images');
+if op==0
+    output_args='1.2.0';
+else 
+path=['.\images',image_version,'\']
+imagebase=dir(path);
 imagebase(1)=[];
 imagebase(1)=[];
 sca;
@@ -47,7 +50,7 @@ for x=1:length(imagebase)
     imagename=imagebase(randimageindex).name
     imagebase(randimageindex)=[]
     
-    theImage=imread(['./images/',imagename]);
+    theImage=imread([path,imagename]);
     %imagebase.name()
     % Get the size of the image
     [s1, s2, s3] = size(theImage);
