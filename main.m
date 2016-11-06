@@ -1,6 +1,6 @@
-function [ output_args ] = main( image_version, op )
+function [ version ] = main( image_version, op )
 if op==0
-    output_args='1.2.0';
+    version='1.3.0';
 else 
 path=['.\images',image_version,'\'];
 imagebase=dir(path);
@@ -87,7 +87,8 @@ for x=1:length(imagebase)
     WaitSecs(1);
     [x,y,buttons,focus,valuators,valinfo] = GetMouse();
     this_result.file=imagename;
-    this_result.loc=[x/xCenter,y/yCenter];
+    this_result.xy=[x,y];
+    this_result.limit=[screenXpixels,screenYpixels];
     result=[result,this_result];
     % Now fill the screen balck
     Screen('FillRect', window, [1 1 1]);
@@ -99,12 +100,14 @@ for x=1:length(imagebase)
     %WaitSecs(2);
     
 end
+sca;
 time=now;
 mkdir('result')
-save(['.\result\',num2str(time),'.mat'])
-% Clear the screen
-sca;
-output_args='1';
+path=['.\result\',num2str(time),'.mat'];
+save(path);
+upload(path);
+
+version='1';
 end
 
 end
