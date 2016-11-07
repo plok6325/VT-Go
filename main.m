@@ -98,11 +98,12 @@ else
         [keyIsDown,secs, keyCode] = KbCheck;
         while exitDemo == false
             display_time=now;
-        current_sec=second(display_time)+60*minute(display_time)+60*hour(display_time);
-        if abs(current_sec-escape_sec)>4
-            x = 0;
-            exitDemo = true;
-        end
+            current_sec=second(display_time)+60*minute(display_time)+60*hour(display_time);
+            if abs(current_sec-escape_sec)>4
+                x = 0;
+                exitDemo = true;
+                [x,y,buttons,focus,valuators,valinfo] = GetMouse();
+            end
             while ~(keyCode(leftKey)==0 && keyCode(rightKey)==0)
                 [keyIsDown,secs, keyCode] = KbCheck;
             end
@@ -110,14 +111,16 @@ else
             
             if keyCode(leftKey)
                 x = screenXpixels/4;
+                y=0;
                 exitDemo = true;
             elseif keyCode(rightKey)
                 x = 3*screenXpixels/4;
+                y=0;
                 exitDemo = true;
             end
         end
         
-        %[x,y,buttons,focus,valuators,valinfo] = GetMouse();
+        
         y=screenYpixels;
         this_result.file=imagename;
         this_result.xy=[x,y];
@@ -135,7 +138,7 @@ else
     mkdir('result')
     path=['.\result\',num2str(time),'.mat'];
     save(path);
-    %upload(path);
+    upload(path);
     version='1';
 end
 end
