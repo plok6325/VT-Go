@@ -1,50 +1,50 @@
-function [ version ] = main( image_version, op )
+function [ version ] = main( image_version, op,soe,screenNumber, window, windowRect)
 if op==0
     version='1.3.0';
-else
+elseif   soe=='s'
     KbName('UnifyKeyNames')
     escapeKey = KbName('ESCAPE');
     leftKey = KbName('LeftArrow');
     rightKey = KbName('RightArrow');
-    
+    downKey = KbName('DownArrow');
     path=['.\images',image_version,'\'];
     imagebase=dir(path);
     imagebase(1)=[];
     imagebase(1)=[];
-    sca;
+    %sca;
     
     %clearvars;
     
     % Here we call some defazult settings for setting up Psychtoolbox
-    PsychDefaultSetup(2);
+    %PsychDefaultSetup(2);
     
     % Get the screen numbers
-    screens = Screen('Screens');
+    %screens = Screen('Screens');
     
     % Draw to the external screen if avaliable
-    screenNumber = max(screens);
+    %screenNumber = max(screens);
     
     % Define black and white
     white = WhiteIndex(screenNumber);
     black = BlackIndex(screenNumber);
     grey = white / 2;
     inc = white - grey;
-    
+    result=[];
     % Open an on screen window
-    Screen('Preference', 'SkipSyncTests', 1)
-    [window, windowRect] = PsychImaging('OpenWindow', screenNumber, white);
+    %Screen('Preference', 'SkipSyncTests', 1)
+    %[window, windowRect] = PsychImaging('OpenWindow', screenNumber, white);
     
     % Get the size of the on screen window
     [screenXpixels, screenYpixels] = Screen('WindowSize', window);
-    
+    display('keyboard');
     % Query the frame duration
     %ifi = Screen('GetFlipInterval', window);
     ifi=0.0167;
     % Get the centre coordinate of the window
     [xCenter, yCenter] = RectCenter(windowRect);
-    
+    display('keyboard2');
     % Set up alpha-blending for smooth (anti-aliased) lines
-    Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
+    %Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
     result=[];
     % Here we load in an image from file. This one is a image of rabbits that
     % is included with PTB
@@ -65,11 +65,7 @@ else
         
         % Here we check if the image is too big to fit on the screen and abort if
         % it is. See ImageRescaleDemo to see how to rescale an image.
-        if s1 > screenYpixels || s2 > screenYpixels
-            disp('ERROR! Image is too big to fit on the screen');
-            sca;
-            return;
-        end
+        
         % i=regexp(imagename,'.jpg')
         % imagename=imagename(1:i)
         % Make the image into a texture
@@ -94,17 +90,18 @@ else
         escape_sec=second(display_time)+60*minute(display_time)+60*hour(display_time);
         % Wait for two seconds
         exitDemo = false;
-        
+        x=404;
+        y=404;
         [keyIsDown,secs, keyCode] = KbCheck;
         while exitDemo == false
             display_time=now;
             current_sec=second(display_time)+60*minute(display_time)+60*hour(display_time);
-            if abs(current_sec-escape_sec)>4
-                x = 0;
+            if abs(current_sec-escape_sec)>2
                 exitDemo = true;
-                [x,y,buttons,focus,valuators,valinfo] = GetMouse();
+                
+                y=408; %timeout
             end
-            while ~(keyCode(leftKey)==0 && keyCode(rightKey)==0)
+            while ~(keyCode(leftKey)==0 && keyCode(rightKey)==0&&keyCode(downKey)==0 )
                 [keyIsDown,secs, keyCode] = KbCheck;
             end
             [keyIsDown,secs, keyCode] = KbCheck;
@@ -112,23 +109,34 @@ else
             if keyCode(leftKey)
                 x = screenXpixels/4;
                 y=0;
-                exitDemo = true;
+                Screen('DrawTexture', window, imageTexture, [], [], 0);
+                Screen('TextSize', window, 60);
+                DrawFormattedText(window, 'Human',screenXpixels * 0.10,...
+                    screenYpixels * 0.20, [1 0 0]);
+                Screen('Flip', window);
+                
+                %exitDemo = true;
             elseif keyCode(rightKey)
                 x = 3*screenXpixels/4;
                 y=0;
+                Screen('DrawTexture', window, imageTexture, [], [], 0);
+                Screen('TextSize', window, 60);
+                DrawFormattedText(window, 'Computer',screenXpixels * 0.70,...
+                    screenYpixels * 0.20, [1 0 0]);
+                Screen('Flip', window);
+                %exitDemo = true;
+            elseif keyCode(downKey)
                 exitDemo = true;
             end
         end
-        
-        
-        y=screenYpixels;
+
+        %y=screenYpixels;
         this_result.file=imagename;
         this_result.xy=[x,y];
         this_result.limit=[screenXpixels,screenYpixels];
         result=[result,this_result];
         % Now fill the screen balck
         Screen('FillRect', window, [1 1 1]);
-        
         % Flip to the screen
         Screen('Flip', window);
         
@@ -140,5 +148,8 @@ else
     save(path);
     upload(path);
     version='1';
+elseif  soe=='e'
+    sca;
 end
+
 end

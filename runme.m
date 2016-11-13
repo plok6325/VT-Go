@@ -14,7 +14,49 @@ image_version=page(image_V(1)+8:image_V(1)+12);
 [currentmainversion ,currentimageversion]=version_check;
 
 if strcmp(currentimageversion,image_version) && strcmp(main_version,currentmainversion)
-    main(image_version,1);
+    sca;
+    %clearvars;
+    % Here we call some defazult settings for setting up Psychtoolbox
+    PsychDefaultSetup(2);
+    % Get the screen numbers
+    screens = Screen('Screens');
+    % Draw to the external screen if avaliable
+    screenNumber = max(screens);
+    
+    % Define black and white
+    white = WhiteIndex(screenNumber);
+    black = BlackIndex(screenNumber);
+    grey = white / 2;
+    inc = white - grey;
+    
+    % Open an on screen window
+    Screen('Preference', 'SkipSyncTests', 1)
+    [window, windowRect] = PsychImaging('OpenWindow', screenNumber, white);
+    
+    % Get the size of the on screen window
+    [screenXpixels, screenYpixels] = Screen('WindowSize', window);
+    % Query the frame duration
+    ifi = Screen('GetFlipInterval', window);
+    %ifi=0.0167;
+    % Get the centre coordinate of the window
+    [xCenter, yCenter] = RectCenter(windowRect);
+    % Set up alpha-blending for smooth (anti-aliased) lines
+    Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
+    
+    DrawFormattedText(window, 'start',screenXpixels * 0.40,...
+        screenYpixels * 0.30, [1 0 0]);
+    DrawFormattedText(window, 'exit',screenXpixels * 0.40,...
+        screenYpixels * 0.60, [1 0 0]);
+    Screen('Flip', window);
+    [clicks,x,y,whichButton] = GetClicks;
+    
+    if y<(screenYpixels*0.5)
+        main(image_version,1,'s',screenNumber,window, windowRect);
+    else
+        main(image_version,1,'e',screenNumber,window, windowRect);
+    end
+    
+    
 else
     rmdir(['images',currentimageversion],'s')
     display('new version found, updating ')
