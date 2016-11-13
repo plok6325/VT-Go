@@ -1,4 +1,6 @@
 %% run me
+clear all
+close all
 current_run_me_version='1.0.0';
 page=urlread('https://github.com/plok6325/VT-Go');
 image_V=regexp(page,'imgpatch\d\.\d\.\d\.zip');
