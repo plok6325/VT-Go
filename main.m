@@ -93,10 +93,12 @@ elseif   soe=='s'
         x=404;
         y=404;
         [keyIsDown,secs, keyCode] = KbCheck;
+        tic;
         while exitDemo == false
-            display_time=now;
-            current_sec=second(display_time)+60*minute(display_time)+60*hour(display_time);
-            if abs(current_sec-escape_sec)>2
+            
+%             display_time=now;
+%             current_sec=second(display_time)+60*minute(display_time)+60*hour(display_time);
+            if toc>5
                 exitDemo = true;
                 
                 y=408; %timeout
@@ -146,7 +148,7 @@ elseif   soe=='s'
     mkdir('result')
     path=['.\result\',num2str(time),'.mat'];
     save(path);
-    upload(path);
+    %upload(path);
     version='1';
 elseif  soe=='e'
     sca;
