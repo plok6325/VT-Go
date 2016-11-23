@@ -7,6 +7,7 @@ elseif   soe=='s'
     leftKey = KbName('LeftArrow');
     rightKey = KbName('RightArrow');
     downKey = KbName('DownArrow');
+    upKey = KbName('UpArrow');
     path=['.\images',image_version,'\'];
     imagebase=dir(path);
     imagebase(1)=[];
@@ -78,16 +79,16 @@ elseif   soe=='s'
         
         % Flip to the screen
         
-        Screen('TextSize', window, 60);
-        DrawFormattedText(window, 'Human',screenXpixels * 0.10,...
-            screenYpixels * 0.20, [1 0 0]);
-        
-        Screen('TextSize', window, 60);
-        DrawFormattedText(window, 'Computer',screenXpixels * 0.70,...
-            screenYpixels * 0.20, [1 0 0]);
+        %         Screen('TextSize', window, 60);
+        %         DrawFormattedText(window, 'Human',screenXpixels * 0.10,...
+        %             screenYpixels * 0.20, [0.5 0.5 0.5]);
+        %
+        %         Screen('TextSize', window, 60);
+        %         DrawFormattedText(window, 'Computer',screenXpixels * 0.70,...
+        %             screenYpixels * 0.20, [0.5 0.5 0.5]);
         Screen('Flip', window);
         display_time=now;
-        escape_sec=second(display_time)+60*minute(display_time)+60*hour(display_time);
+        %escape_sec=second(display_time)+60*minute(display_time)+60*hour(display_time);
         % Wait for two seconds
         exitDemo = false;
         x=404;
@@ -95,14 +96,21 @@ elseif   soe=='s'
         [keyIsDown,secs, keyCode] = KbCheck;
         tic;
         while exitDemo == false
-            
-%             display_time=now;
-%             current_sec=second(display_time)+60*minute(display_time)+60*hour(display_time);
-            if toc>5
+            %             display_time=now;
+            %             current_sec=second(display_time)+60*minute(display_time)+60*hour(display_time);
+            if toc>1 %time%
                 exitDemo = true;
-                
                 y=408; %timeout
             end
+        end
+        
+        exitDemo = false;
+        Screen('TextSize', window, 80);
+        DrawFormattedText(window, 'Human ?/ Computer ?',screenXpixels * 0.20,...
+            screenYpixels * 0.40, [0.5 0.5 0.5]);
+        Screen('Flip', window);
+        
+        while exitDemo == false
             while ~(keyCode(leftKey)==0 && keyCode(rightKey)==0&&keyCode(downKey)==0 )
                 [keyIsDown,secs, keyCode] = KbCheck;
             end
@@ -111,27 +119,36 @@ elseif   soe=='s'
             if keyCode(leftKey)
                 x = screenXpixels/4;
                 y=0;
-                Screen('DrawTexture', window, imageTexture, [], [], 0);
-                Screen('TextSize', window, 60);
-                DrawFormattedText(window, 'Human',screenXpixels * 0.10,...
-                    screenYpixels * 0.20, [1 0 0]);
+                %Screen('DrawTexture', window, imageTexture, [], [], 0);
+                Screen('TextSize', window, 80);
+                DrawFormattedText(window, 'Human',screenXpixels * 0.20,...
+                    screenYpixels * 0.45, [0.5 0.5 0.5]);
                 Screen('Flip', window);
                 
                 %exitDemo = true;
             elseif keyCode(rightKey)
                 x = 3*screenXpixels/4;
                 y=0;
-                Screen('DrawTexture', window, imageTexture, [], [], 0);
-                Screen('TextSize', window, 60);
-                DrawFormattedText(window, 'Computer',screenXpixels * 0.70,...
-                    screenYpixels * 0.20, [1 0 0]);
+                %Screen('DrawTexture', window, imageTexture, [], [], 0);
+                Screen('TextSize', window, 80);
+                DrawFormattedText(window, 'Computer',screenXpixels * 0.55,...
+                    screenYpixels * 0.45, [0.5 0.5 0.5]);
+                Screen('Flip', window);
+                %exitDemo = true;
+            elseif keyCode(upKey)
+                x = 2*screenXpixels/4;
+                y=0;
+                %Screen('DrawTexture', window, imageTexture, [], [], 0);
+                Screen('TextSize', window, 80);
+                DrawFormattedText(window, 'I D K',screenXpixels * 0.45,...
+                    screenYpixels * 0.45, [0.5 0.5 0.5]);
                 Screen('Flip', window);
                 %exitDemo = true;
             elseif keyCode(downKey)
                 exitDemo = true;
             end
         end
-
+        
         %y=screenYpixels;
         this_result.file=imagename;
         this_result.xy=[x,y];

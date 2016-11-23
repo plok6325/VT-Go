@@ -44,15 +44,15 @@ if strcmp(currentimageversion,image_version) && strcmp(main_version,currentmainv
     [xCenter, yCenter] = RectCenter(windowRect);
     % Set up alpha-blending for smooth (anti-aliased) lines
     Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
-    
-    DrawFormattedText(window, 'start',screenXpixels * 0.40,...
-        screenYpixels * 0.30, [1 0 0]);
-    DrawFormattedText(window, 'exit',screenXpixels * 0.40,...
-        screenYpixels * 0.60, [1 0 0]);
+    Screen('TextSize', window, 100);
+    thearrow=imread('.\content\arrow.png');
+    imageTexture = Screen('MakeTexture', window, thearrow);
+    Screen('DrawTexture', window, imageTexture, [], [], 0);
+
     Screen('Flip', window);
-    [clicks,x,y,whichButton] = GetClicks;
-    
-    if y<(screenYpixels*0.5)
+    [clicks,x,y,whichButton] = GetClicks()
+
+    if x>(screenXpixels*0.5)
         main(image_version,1,'s',screenNumber,window, windowRect);
     else
         main(image_version,1,'e',screenNumber,window, windowRect);
