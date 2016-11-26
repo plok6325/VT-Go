@@ -56,6 +56,12 @@ elseif   soe=='s'
             imagename=[];
             randimageindex=1+floor(rand(1)*length(imagebase));
             imagename=imagebase(randimageindex).name;
+            
+            locations=regexp(imagename,'\w#');
+            exp_name='E',result(index).file(1:locations(1));
+            k=result(index).file(locations(1)+1:locations(2));
+            pi=result(index).file(locations(2)+1:locations(3));
+            
             imagebase(randimageindex)=[];
             
             theImage=imread([path,imagename]);
@@ -148,6 +154,7 @@ elseif   soe=='s'
                     Screen('Flip', window);
                     %exitDemo = true;
                 elseif keyCode(downKey)
+                    
                     exitDemo = true;
                 elseif keyCode(escapeKey)
                     sca;
@@ -161,6 +168,7 @@ elseif   soe=='s'
             this_result.xy=[x,y];
             this_result.limit=[screenXpixels,screenYpixels];
             result=[result,this_result];
+            stats.(exp_name)
             % Now fill the screen balck
             %                 Screen('FillRect', window, [1 1 1]);
             %                 % Flip to the screen
@@ -169,6 +177,7 @@ elseif   soe=='s'
         end
         
     end
+    
     
     sca;
     time=now;
