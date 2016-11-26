@@ -87,13 +87,13 @@ def extract_X_images(path,num_real):
                 
                 
 
-real_image_path='./images1.1.0/real'   
+real_image_path='./image_database/real'   
 num_real=raw_input('Extract how many real images ? > ')     
 
 extract_X_images(real_image_path,num_real)
             
             
-PC='./images1.1.0/PC'
+PC='./image_database/PC'
 PC_path=os.listdir(PC)
 for PC1 in PC_path:
     num_pc=raw_input('Extract how many generated image from %s folder ? > ' %PC1)        
