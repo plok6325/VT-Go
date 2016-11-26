@@ -3,7 +3,7 @@ clear all
 path='./result'
 all_mat=dir('**/*.mat');
 stats.real=[0,0]; 
-for mat_file =1 :length(all_mat)-1
+for mat_file =1 :length(all_mat)
     load ([path,'/',all_mat(mat_file).name], 'result')
     Exp_name_found={};
     for index = 1: length(result)
@@ -11,7 +11,6 @@ for mat_file =1 :length(all_mat)-1
         [xy]=result(index).xy;
         selection=xy./limit;
         locations=regexp(result(index).file,'\w#');
-
         if xy(2)~=0
         else
             if isempty(locations)
