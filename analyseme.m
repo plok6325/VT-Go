@@ -3,8 +3,8 @@ clear all
 close all
 
 path='./result';
-for pt=[50 1000 ]
-    
+for pt=[50 100 500 1000 2000]
+    clear stats
 all_mat=dir(['**/',num2str(pt),'#*.mat']);
 stats.real=[0,0];
 realstat=[0,0];
