@@ -13,8 +13,9 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
-*.png
 *.txt 
+images1.1.0/
+image_database/
 # Windows shortcuts
 *.lnk
 
