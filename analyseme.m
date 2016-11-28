@@ -1,7 +1,11 @@
 %% analyzer
 clear all
+close all
+
 path='./result';
-all_mat=dir('**/*.mat');
+for pt=[50 1000 ]
+    
+all_mat=dir(['**/',num2str(pt),'#*.mat']);
 stats.real=[0,0];
 realstat=[0,0];
 for mat_file =1 :length(all_mat)
@@ -66,7 +70,9 @@ for field=1:length(all_field)
     box(subplot1,'on');
     % 设置其余坐标轴属性
     set(subplot1,'XTick',[1 2],'XTickLabel',{'Human','PC'});
-    title(all_field{field});
+    title(['pt=',num2str(pt),'Set=',all_field{field}]);
     Hypothesis= inv(H)*stats.real'/sum(inv(H)*stats.real');
     xlabel(num2str(tcdf(t,sum(Humanandpc)-1)));
+end
+
 end

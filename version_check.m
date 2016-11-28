@@ -9,7 +9,7 @@ if length(imageversion)~=1
     currentmainversion=main(1,0);
 else
 currentimageversion=imageversion(1).name(7:11);
-currentmainversion=main(1,0,0);main( 1, 0,0,0, 0, 0)
+currentmainversion=main(1,0,0);main( 1, 0,0,0, 0, 0,0)
 version={currentmainversion ,currentimageversion} ;
 end
 end

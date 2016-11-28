@@ -1,4 +1,4 @@
-function [ version ] = main( image_version, op,soe,screenNumber, window, windowRect)
+function [ version ] = main( image_version, op,soe,screenNumber, window, windowRect,pt)
 if op==0
     version='1.3.0';
 elseif   soe=='s'
@@ -106,7 +106,7 @@ elseif   soe=='s'
             while exitDemo == false
                 %             display_time=now;
                 %             current_sec=second(display_time)+60*minute(display_time)+60*hour(display_time);
-                if toc>1 %time%
+                if toc>pt/1000; %time%
                     exitDemo = true;
                     y=408; %timeout
                 end
@@ -173,7 +173,7 @@ elseif   soe=='s'
     sca;
     time=now;
     mkdir('result')
-    path=['.\result\',num2str(time),'.mat'];
+    path=['.\result\',num2str(pt),'#',num2str(time),'.mat'];
     save(path);
     %upload(path);
     version='1';

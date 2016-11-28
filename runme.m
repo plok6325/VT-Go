@@ -48,14 +48,35 @@ if strcmp(currentimageversion,image_version) && strcmp(main_version,currentmainv
     thearrow=imread('.\content\arrow.png');
     imageTexture = Screen('MakeTexture', window, thearrow);
     Screen('DrawTexture', window, imageTexture, [], [], 0);
-
+    
     Screen('Flip', window);
     [clicks,x,y,whichButton] = GetClicks()
-
+    
     if x>(screenXpixels*0.5)
-        main(image_version,1,'s',screenNumber,window, windowRect);
+        
+        thearrow=imread('.\content\timepick.png');
+        imageTexture = Screen('MakeTexture', window, thearrow);
+        Screen('DrawTexture', window, imageTexture, [], [], 0);
+        Screen('Flip', window);
+        
+        [clicks,x,y,whichButton] = GetClicks();
+        x=x/xCenter/2;
+        y=y/yCenter/2;
+        
+        if x <0.3 && y <0.55
+            pt=50;
+        elseif x <0.4 && y >0.55
+            pt=100;
+        elseif (0.65>x) && (x>0.3) && y <0.55
+            pt=500
+        elseif x >0.5 && y >0.55
+            pt = 1000
+        elseif x>0.5 && y<0.55
+            pt = 2000
+        end
+        main(image_version,1,'s',screenNumber,window, windowRect,pt);
     else
-        main(image_version,1,'e',screenNumber,window, windowRect);
+        main(image_version,1,'e',screenNumber,window, windowRect,0);
     end
     
     
