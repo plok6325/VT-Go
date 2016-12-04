@@ -23,15 +23,17 @@ def get_folders(path):
 def add_name(path,name):    
     
     for file in os.listdir(path):
-        if os.path.isfile(os.path.join(path,file))==True:
-            if file.find('.png')>0:
-                final_name= name+file
-                os.rename(path+'/'+file,path+'/'+final_name)
+        if file[:2] != 'Ex':
+            
+            if os.path.isfile(os.path.join(path,file))==True:
+                if file.find('.png')>0:
+                    final_name= name+file
+                    os.rename(path+'/'+file,path+'/'+final_name)
                  
     #        print file.split('.')[-1] 
     
 
-path = '.\images1.1.0\PC'
+path = '.\pioGAN4'
 folders= get_folders(path)
 
 for folder in folders: 

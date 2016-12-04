@@ -5,7 +5,7 @@ close all
 path='./result';
 for pt=[50 100 500 1000 2000]
     clear stats
-all_mat=dir(['**/',num2str(pt),'#*.mat']);
+all_mat=dir(['./result/',num2str(pt),'#*.mat']);
 stats.real=[0,0];
 realstat=[0,0];
 for mat_file =1 :length(all_mat)

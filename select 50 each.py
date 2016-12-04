@@ -42,14 +42,12 @@ def get_fundamental_path(path):
     guess_path_list=[]
     guess_path_list.append(path)
     i=1
-    while i<5: 
+    while i<10: 
         for guess_path in guess_path_list:
             if explore_image(guess_path) == False:
                 os.listdir(guess_path)
                 
                 folders = get_folders(guess_path)
-                subfolder=[]
-                image_path=[]
                 for folder in folders:
                     guess_path_list.append(os.path.join(guess_path,folder))
                 i+=1
@@ -58,7 +56,8 @@ def get_fundamental_path(path):
          
 def extract_X_images(path,num_real): 
    
-    real_image_path=get_fundamental_path(path)        
+    real_image_path=get_fundamental_path(path) 
+    real_image_path.remove(path)       
     random_folder=[]
     i=0        
     while i<=int(num_real):
