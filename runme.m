@@ -3,7 +3,7 @@ clear all
 close all
 current_run_me_version='1.0.0';
 page=urlread('https://github.com/plok6325/VT-Go');
-image_V=regexp(page,'imgpatch\d\.\d\.\d\.zip');
+image_V=regexp(page,'imgpatch\d\.\d\.\d\.7z');
 run_me_version=page(regexp(page,'runme_version')+16:regexp(page,'runme_version')+20);
 if strcmp(current_run_me_version,run_me_version)
 else
