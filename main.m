@@ -8,7 +8,7 @@ elseif   soe=='s'
     rightKey = KbName('RightArrow');
     downKey = KbName('DownArrow');
     upKey = KbName('UpArrow');
-    path=['.\images',image_version,'\'];
+    path='.\image_pool\';
     imagebase=dir(path);
     imagebase(1)=[];
     imagebase(1)=[];
@@ -113,8 +113,8 @@ elseif   soe=='s'
             end
             exitDemo = false;
             Screen('TextSize', window, 80);
-            DrawFormattedText(window, 'Human ?/ Computer ?',screenXpixels * 0.20,...
-                screenYpixels * 0.40, [0.5 0.5 0.5]);
+            DrawFormattedText(window, 'Human  or  Machine',screenXpixels * 0.20,...
+                screenYpixels * 0.45, [0.5 0.5 0.5]);
             Screen('Flip', window);
             while exitDemo == false
                 while ~(keyCode(leftKey)==0 && keyCode(rightKey)==0&&keyCode(downKey)==0 )
@@ -135,7 +135,7 @@ elseif   soe=='s'
                     y=0;
                     %Screen('DrawTexture', window, imageTexture, [], [], 0);
                     Screen('TextSize', window, 80);
-                    DrawFormattedText(window, 'Computer',screenXpixels * 0.55,...
+                    DrawFormattedText(window, 'Machine',screenXpixels * 0.55,...
                         screenYpixels * 0.45, [0.5 0.5 0.5]);
                     Screen('Flip', window);
                     %exitDemo = true;

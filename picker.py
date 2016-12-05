@@ -67,7 +67,7 @@ def extract_X_images(path,num_real):
     random_image=[]
     for folder in random_folder:
         random_file=random.choice(os.listdir(folder))
-        random_image.append(['./images1.1.0/'+random_file,folder+'/'+random_file])
+        random_image.append(['./image_pool/'+random_file,folder+'/'+random_file])
         
     for dst, src in random_image:
         if (dst.find('.png')>0):

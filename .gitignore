@@ -18,6 +18,7 @@ images1.1.0/
 image_database/
 pioGAN4/
 image_pool/
+result/
 # Windows shortcuts
 *.lnk
 

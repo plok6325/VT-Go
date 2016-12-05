@@ -8,8 +8,7 @@ Created on Thu Nov 24 23:38:43 2016
 # -*- coding: cp936 -*-
 import os
 import re
-    
-
+ 
 def get_folders(path):
     all_files=os.listdir(path)
     folders=[]

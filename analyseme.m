@@ -70,7 +70,7 @@ for field=1:length(all_field)
     box(subplot1,'on');
     % 设置其余坐标轴属性
     set(subplot1,'XTick',[1 2],'XTickLabel',{'Human','PC'});
-    title(['pt=',num2str(pt),'Set=',all_field{field}]);
+    title(['pt=',num2str(pt),'   ',all_field{field}],'Interpreter','none');
     Hypothesis= inv(H)*stats.real'/sum(inv(H)*stats.real');
     xlabel(num2str(tcdf(t,sum(Humanandpc)-1)));
 end

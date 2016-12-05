@@ -3,7 +3,7 @@ clear all
 close all
 current_run_me_version='1.0.0';
 page=urlread('https://github.com/plok6325/VT-Go');
-image_V=regexp(page,'imgpatch\d\.\d\.\d\.7z');
+image_V=regexp(page,'imgpatch\d\.\d\.\d\.zip');
 run_me_version=page(regexp(page,'runme_version')+16:regexp(page,'runme_version')+20);
 if strcmp(current_run_me_version,run_me_version)
 else
@@ -68,11 +68,11 @@ if strcmp(currentimageversion,image_version) && strcmp(main_version,currentmainv
         elseif x <0.4 && y >0.55
             pt=100;
         elseif (0.65>x) && (x>0.3) && y <0.55
-            pt=500
+            pt=500;
         elseif x >0.5 && y >0.55
-            pt = 1000
+            pt = 1000;
         elseif x>0.5 && y<0.55
-            pt = 2000
+            pt = 2000;
         end
         main(image_version,1,'s',screenNumber,window, windowRect,pt);
     else
@@ -81,11 +81,11 @@ if strcmp(currentimageversion,image_version) && strcmp(main_version,currentmainv
     
     
 else
-    rmdir(['images',currentimageversion],'s')
+    rmdir('image_database','s')
     display('new version found, updating ')
     zipname=['imgpatch',image_version,'.zip'];
     websave(zipname,['https://github.com/plok6325/VT-Go/raw/master/',zipname]);
-    unzip(zipname,['.\images',image_version]);
+    unzip(zipname);
     websave('main.m','https://github.com/plok6325/VT-Go/raw/master/main.m');
     display('done run script again');
 end
