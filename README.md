@@ -3,7 +3,7 @@
 A visual turning experiment which fix the presentation time of the image. 
 
 ![image1](https://github.com/plok6325/VT-Go/raw/master/content/arrow2.png)
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ZXsQAXx_ao0" frameborder="0" allowfullscreen></iframe>
+
 ------
 ## Dependencies 
 psychtoolbox   
@@ -36,10 +36,10 @@ Press Down arrow to confirm your selection.
 2. The result should be directly emailed to the creator, if it fail, zip the entire 'result' folder and email to plok6325@gmail.com. 
  
 
+The experiment might be very boring. If you feel like giving up, check the [video](https://www.youtube.com/watch?v=ZXsQAXx_ao0) 
 ## 
 runme_version # 1.0.0
 
 script_version # 1.3.0
 
 
-<img src = 'https://github.com/plok6325/VT-Go/blob/master/content/arrow2.png'>
