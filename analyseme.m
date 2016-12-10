@@ -61,6 +61,7 @@ for field=1:length(all_field)
     H=[[1,1];[0.25 0.75]];
     Humanandpc= inv(H)*stats.(all_field{field})';
     % 创建 axes
+    confusion(:,field)=Humanandpc;
     subplot1 = subplot(1,length(all_field),field,'Parent',figure1);
     hold(subplot1,'on');
     bar(Humanandpc,'Parent',subplot1)
@@ -69,10 +70,24 @@ for field=1:length(all_field)
     tcdf(t,sum(Humanandpc));
     box(subplot1,'on');
     % 设置其余坐标轴属性
-    set(subplot1,'XTick',[1 2],'XTickLabel',{'Human','PC'});
+    set(subplot1,'XTick',[1 2],'XTickLabel',{'Human','Machine'});
     title(['pt=',num2str(pt),'   ',all_field{field}],'Interpreter','none');
     Hypothesis= inv(H)*stats.real'/sum(inv(H)*stats.real');
-    xlabel(num2str(tcdf(t,sum(Humanandpc)-1)));
+    %xlabel(num2str(tcdf(t,sum(Humanandpc)-1)));
 end
 
 end
+confusion(1,2:end)./confusion(2,2:end)
+[m i]=max (confusion(1,2:end)./confusion(2,2:end))
+best_machine = confusion(:,i+1);
+real= confusion(:,1) ;
+t=[ones(1,real(1)) zeros(1,real(2))];
+TP=real(1)./sum(real);
+FP=real(2)./sum(real);
+FN=best_machine(1)./sum(best_machine);
+TN=best_machine(1)./sum(best_machine);
+clc 
+display(['Recall = ', num2str(TP) ]);
+display([' Specificity = ',num2str( TN)]);
+%sum(confusion(:,2:end),2);
+
