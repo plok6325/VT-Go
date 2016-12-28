@@ -47,7 +47,7 @@ for mat_file =1 :length(all_mat)
 end
 
 
-%% significant test (student's t  test )
+%% real analysis 
 realstat=realstat(2:end,:);
 realstat=realstat(:,1)./sum(realstat,2);
 real_mean=mean(realstat);
@@ -56,15 +56,23 @@ real_mu=std(realstat);
 
 all_field=fieldnames(stats);
 figure1=figure;
+
 for field=1:length(all_field)
     stats.real=sum(stats.real,1);
     H=[[1,1];[0.25 0.75]];
     Humanandpc= inv(H)*stats.(all_field{field})';
+    Humanvspc(:,field)=Humanandpc';
     % 创建 axes
     confusion(:,field)=Humanandpc;
     subplot1 = subplot(1,length(all_field),field,'Parent',figure1);
     hold(subplot1,'on');
-    bar(Humanandpc,'Parent',subplot1)
+    bbb=bar(Humanandpc,'Parent',subplot1)
+    if field ==1 
+        bbb.FaceColor =[0.466666668653488 0.674509823322296 0.18823529779911];
+    else 
+        bbb.FaceColor =[0 0.447058826684952 0.74117648601532];
+    end 
+    
     this_prob=Humanandpc/sum(Humanandpc);
     t=-(real_mean-this_prob(1))/sqrt(sum(Humanandpc))/real_mu;
     tcdf(t,sum(Humanandpc));
@@ -75,8 +83,35 @@ for field=1:length(all_field)
     Hypothesis= inv(H)*stats.real'/sum(inv(H)*stats.real');
     %xlabel(num2str(tcdf(t,sum(Humanandpc)-1)));
 end
+Humanvspc(2,:) = -Humanvspc(2,:);
+Humanvspc = Humanvspc./ repmat(sum(abs(Humanvspc),1),2,1);
+
+Y =Humanvspc';
+figure2=figure
+axes1 = axes('Parent',figure2);
+hold(axes1,'on');
+
+hBars = bar(Y);
+
+% 修改baseline,会变成上下两部分
+set(hBars(1),'BaseValue',0)
+set(hBars(2),...
+    'FaceColor',[0.466666668653488 0.674509823322296 0.18823529779911]);
+set(hBars(1),'FaceColor',[0 0.447058826684952 0.74117648601532]);
+baseline1 = get(hBars(2),'BaseLine');
+set(baseline1,'LineWidth',2,'LineStyle',':','Color',[1 0 0]);
+
+% 修改baseline线条的属性
+hBaseline = get(hBars(1),'Baseline');
+set(hBaseline,'LineStyle',':','Color','red','LineWidth',2);
+
+set(axes1,'XTick',[1 2 3 4],'XTickLabel',{'Real','Ex','Ex','Ex'});
 
 end
+
+Humanvspc(2,:) = -Humanvspc(2,:);
+Humanvspc = Humanvspc./ repmat(sum(abs(Humanvspc),1),2,1);
+
 confusion(1,2:end)./confusion(2,2:end)
 [m i]=max (confusion(1,2:end)./confusion(2,2:end))
 best_machine = confusion(:,i+1);
@@ -90,4 +125,5 @@ clc
 display(['Recall = ', num2str(TP) ]);
 display([' Specificity = ',num2str( TN)]);
 %sum(confusion(:,2:end),2);
+%% better plot 
 
