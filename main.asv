@@ -115,7 +115,8 @@ elseif   soe=='s'
             end
             exitDemo = false;
             
-             
+            Screen('DrawTexture', window, imageTexture1, [], [], 0);
+            Screen('Flip', window);
             while exitDemo == false
                 while ~(keyCode(leftKey)==0 && keyCode(rightKey)==0&&keyCode(downKey)==0 )
                     [keyIsDown,secs, keyCode] = KbCheck;
@@ -151,7 +152,7 @@ elseif   soe=='s'
                 elseif keyCode(downKey)
                     Screen('DrawTexture', window, imageTexture1, [], [], 0);
                 Screen('Flip', window);
-                pause(0.25)
+                els
                     exitDemo = true;
                 elseif keyCode(escapeKey)
                     sca;

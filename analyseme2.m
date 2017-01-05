@@ -2,7 +2,8 @@
 
 close all
 clear all
-total_result=[]
+t=cputime;
+total_result=[];
 
 path='./result';
 for pt=[50 100 500 1000 2000]
@@ -41,9 +42,9 @@ for index = 1 :length(all_image_name)
     end
 end
 
+display(num2str(cputime-t));
+all_Human=[clean_result.Human];
+all_Machine=[clean_result.Machine];
 
-all_Human=[clean_result.Human]
-all_Machine=[clean_result.Machine]
-
-bar([all_Human, all_Machine ] )
+bar([all_Human, all_Machine ] );
 

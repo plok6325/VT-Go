@@ -1,9 +1,10 @@
 %% analyzer
 clear all
 close all
-
+cput=cputime;
 path='./result';
-for pt=[50 100 500 1000 2000]
+Human_pc=[]
+for pt=[500]
     clear stats
 all_mat=dir(['./result/',num2str(pt),'#*.mat']);
 stats.real=[0,0];
@@ -30,8 +31,8 @@ for mat_file =1 :length(all_mat)
                 
             else
                 exp_name=result(index).file(1:locations(1));
-                k=result(index).file(locations(1)+1:locations(2));
-                pi=result(index).file(locations(2)+1:locations(3));
+                k=result(index).file(locations(1)+2:locations(2));
+                pi=result(index).file(locations(2)+2:locations(3));
                 if fieldexist(fieldnames(stats),exp_name)
                 else
                     stats.(exp_name)=[0,0];
@@ -61,6 +62,7 @@ for field=1:length(all_field)
     stats.real=sum(stats.real,1);
     H=[[1,1];[0.25 0.75]];
     Humanandpc= inv(H)*stats.(all_field{field})';
+    Human_pc(:,field)=Humanandpc';
     Humanvspc(:,field)=Humanandpc';
     % 创建 axes
     confusion(:,field)=Humanandpc;
@@ -75,7 +77,7 @@ for field=1:length(all_field)
     
     this_prob=Humanandpc/sum(Humanandpc);
     t=-(real_mean-this_prob(1))/sqrt(sum(Humanandpc))/real_mu;
-    tcdf(t,sum(Humanandpc));
+    %tcdf(t,sum(Humanandpc));
     box(subplot1,'on');
     % 设置其余坐标轴属性
     set(subplot1,'XTick',[1 2],'XTickLabel',{'Human','Machine'});
@@ -116,7 +118,7 @@ confusion(1,2:end)./confusion(2,2:end)
 [m i]=max (confusion(1,2:end)./confusion(2,2:end))
 best_machine = confusion(:,i+1);
 real= confusion(:,1) ;
-t=[ones(1,real(1)) zeros(1,real(2))];
+t=[ones(1,real(1)) zeros(1,real(2))];6
 TP=real(1)./sum(real);
 FP=real(2)./sum(real);
 FN=best_machine(1)./sum(best_machine);
@@ -124,6 +126,8 @@ TN=best_machine(1)./sum(best_machine);
 clc 
 display(['Recall = ', num2str(TP) ]);
 display([' Specificity = ',num2str( TN)]);
+
+display(num2str(cputime-cput));
 %sum(confusion(:,2:end),2);
 %% better plot 
-
+bayes
