@@ -1,6 +1,7 @@
 %% analyzer
 clear all
 close all
+tic
 cput=cputime;
 path='./result';
 Human_pc=[]
@@ -127,7 +128,9 @@ clc
 display(['Recall = ', num2str(TP) ]);
 display([' Specificity = ',num2str( TN)]);
 
-display(num2str(cputime-cput));
+display(num2str(toc));
 %sum(confusion(:,2:end),2);
 %% better plot 
 bayes
+
+display(num2str(toc));

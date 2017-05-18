@@ -2,6 +2,7 @@
 
 close all
 clear all
+tic
 t=cputime;
 total_result=[];
 
@@ -42,7 +43,7 @@ for index = 1 :length(all_image_name)
     end
 end
 
-display(num2str(cputime-t));
+display(num2str(toc));
 all_Human=[clean_result.Human];
 all_Machine=[clean_result.Machine];
 
